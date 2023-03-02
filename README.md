@@ -1,6 +1,6 @@
 # R-EA
 
-REA is Exploratory Data Analysis in R
+REA is Exploratory Data Analysis in R.
 In this case, I created 2 scripts for my students in order to focus on analysis and not programming.
 
 REA_descripY,
