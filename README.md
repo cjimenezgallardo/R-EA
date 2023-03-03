@@ -9,7 +9,7 @@ the script considers the analysis of the dependent variable according to an inde
 REA_descripYxG
 
 
-sample:
+Shows:
 ni = number of data per group,
 mean, median, 
 standard deviation,
