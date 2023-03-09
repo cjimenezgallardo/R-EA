@@ -1,12 +1,14 @@
 # R-EA
 
 REA is Exploratory Data Analysis in R.
-In this case, I created 2 scripts for my students in order to focus on analysis and not programming.
+In this case, I created a script for my students in order to focus on analysis and not programming.
 
-REA_descripY,
-the script considers the analysis of the dependent variable according to an independent variable
+REA_descripYG,
+the script considers the analysis of the dependent variable with o without V.independent
 
-REA_descripYxG
+format:
+without VI -> descripYG(dataset,dataset$vd,NULL)
+with VI -> descripYG(dataset,dataset$vd,dataset$vi)
 
 
 Shows:
