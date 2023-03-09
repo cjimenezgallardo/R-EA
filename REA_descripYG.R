@@ -1,3 +1,27 @@
+#'Analisis Descriptivo para una variable Dependiente con una variable independiente
+#'
+#'
+#'More detailed description.
+#'author, CJG-
+#'
+#'
+#' @param dataset as dataframe
+#' @param vd as numeric vector, dependent Variable
+#' @param vi as numeric vector, independent Variable (vi=NULL, if No exist)
+#'
+#' @returns Descriptive Analysis,
+#'
+#'
+#' @examples
+#'
+#'
+#'
+#' @export
+#' 
+#' 
+
+
+
 library (tidyverse)
 library(ggridges)
 library (PerformanceAnalytics)
@@ -7,7 +31,7 @@ library (psych)
 descripY2<- function(dataset, vd, vi)
 {
   options(warn = -1)
-  print (vi)
+
   if (is.null(vi))
   {
     sum3=0
