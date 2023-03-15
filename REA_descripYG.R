@@ -1,4 +1,4 @@
-#'Analisis Descriptivo para una variable Dependiente con una variable independiente
+#'Analisis Descriptivo para una variable Dependiente con/sin una variable independiente
 #'
 #'
 #'More detailed description.
@@ -38,21 +38,6 @@ descripY2<- function(dataset, vd, vi)
     n.dy<-nrow(dataset)
     min.dy<-min(vd)
     max.dy<-max(vd)
-    
-    # LIMPIAR ATIPICOS-
-    
-    #boxplot(datos$vd)
-    
-    #limpiando valores atipicos en funcion de BOXPLOT
-    #1. identificar V.A. y dejarlos en un archivo "atipicos"
-    #atipicos<-boxplot(datos$vd,plot=FALSE)$out
-    #2. para un n suficientes eliminar desde la base crear un archivo con datos limpios
-    #la coma puede depender de la cantidad de variables.
-    
-    #datos<-datos[-which(datos$vd %in% atipicos),] 
-    
-    
-    
     
     promedio.dy<-mean(vd)
     mediana.dy<-median(vd)
@@ -115,7 +100,11 @@ descripY2<- function(dataset, vd, vi)
     
     #infoFinal.dy<-data.frame(nombre,info.dy)
     return(info.dy)
-  }else {
+
+    
+      }else {
+    
+        
     options(warn = -1)
     ni.e <- tapply(vd, vi, length)
     ng.e <- length(ni.e)
@@ -149,21 +138,7 @@ descripY2<- function(dataset, vd, vi)
     
     var.e  = tapply(vd, vi, var)
     ds.e   = tapply(vd, vi, sd)
-    ##############################
-    #  for (i in 1 :  ng.e){
-    #    y.e<-subset(vd,vi==trat.e[i])
-    #    ds.p.e[i]<-sqrt(sd(y.e)^2*(ni.e[i]-1)/ni.e[i])
-    
-    ###########################    
-    #  for (j in 1 : ni.e[i]){
-    #    sum3.e[i]=sum3.e[i]+(y.e[j]-prom.e[i])^3
-    #    sum4.e[i]=sum4.e[i]+(y.e[j]-prom.e[i])^4
-    #  }
-    #  curt.e[i]<-sum4.e[i]/(ni.e[i]*ds.p.e[i]^4)-3
-    #  asim.e[i]<-sum3.e[i]/(ni.e[i]*ds.p.e[i]^3)
-    
-    #}
-    
+
     curt.e =tapply(vd,vi, kurtosis)
     asim.e =tapply(vd,vi, skew)
     
@@ -208,14 +183,7 @@ descripY2<- function(dataset, vd, vi)
       ggtitle("")
     print (bp)
     
-    
-    #  bd <- ggplot(data=dataset,aes(x= vd,fill=as.factor(vi)))+
-    #    geom_density(alpha=0.5)+
-    #    scale_y_continuous(expand = expansion(mult = c(0, 0.05)))+
-    #    theme_minimal(12)
-    
-    #  print (bd)
-    
+
     bd1 <- ggplot(data=dataset,aes(x= vd,y=as.factor(vi),fill=as.factor(vi)))+
       geom_density_ridges2()
     
