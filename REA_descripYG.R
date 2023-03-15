@@ -27,7 +27,7 @@ library (PerformanceAnalytics)
 library (psych)
 
 
-descripY2<- function(dataset, vd, vi)
+descripYG<- function(dataset, vd, vi)
 {
   options(warn = -1)
 
