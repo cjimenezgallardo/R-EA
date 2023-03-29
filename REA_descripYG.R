@@ -13,7 +13,19 @@
 #'
 #'
 #' @examples
+#' como usar 
 #'
+#' si solo hace anaálisis de una variable dependiente (VD)
+#' puede escribirlo 
+#' 
+#' 1- descripYG(dataset, vd=dataset$vd,vi=NULL)
+#' 2- descripYG(dataset, dataset$vd,NULL)
+#' 
+#' 
+#' si hara un analisis de la VD, de acuerdo a una independiente (VI)
+#' 
+#' 1- descripYG(dataset, vd=dataset$vd,vi=dataset$vi)
+#' 2- descripYG(dataset, dataset$vd,dataset$vi)
 #'
 #' @export
 #' 
@@ -201,8 +213,4 @@ descripYG<- function(dataset, vd, vi)
     
 }
 
-descripY2(A01, vd=A01$t_int,vi=NULL)
 
-
-
-descripY2(A01, vd=A01$t_int,vi=A01$dia)
