@@ -13,8 +13,7 @@
 #'
 #'
 #' @examples
-#' como usar 
-#'
+#' 
 #' si solo hace anaálisis de una variable dependiente (VD)
 #' puede escribirlo 
 #' 
