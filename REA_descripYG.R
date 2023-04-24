@@ -13,29 +13,15 @@
 #'
 #'
 #' @examples
-#' 
-#' si solo hace anaálisis de una variable dependiente (VD)
-#' puede escribirlo 
-#' 
-#' 1- descripYG(dataset, vd=dataset$vd,vi=NULL)
-#' 2- descripYG(dataset, dataset$vd,NULL)
-#' 
-#' 
-#' si hara un analisis de la VD, de acuerdo a una independiente (VI)
-#' 
-#' 1- descripYG(dataset, vd=dataset$vd,vi=dataset$vi)
-#' 2- descripYG(dataset, dataset$vd,dataset$vi)
+#'
 #'
 #' @export
 #' 
 #' 
-
-
-
-library (tidyverse)
-library(ggridges)
-library (PerformanceAnalytics)
-library (psych)
+require(tidyverse)
+require(ggridges)
+require(PerformanceAnalytics)
+require(psych)
 
 
 descripYG<- function(dataset, vd, vi)
@@ -44,33 +30,23 @@ descripYG<- function(dataset, vd, vi)
 
   if (is.null(vi))
   {
-    sum3=0
-    sum4=0
+    sum3<-0
+    sum4<-0
     n.dy<-nrow(dataset)
-    min.dy<-min(vd)
-    max.dy<-max(vd)
-    
-    promedio.dy<-mean(vd)
-    mediana.dy<-median(vd)
-    
-    desvestm.dy<-sd(vd)
+
     desvestp.dy<-sqrt((n.dy-1)*sd(vd)^2/n.dy)
     
     for (i in 1: n.dy){
-      sum3<-sum3+(vd[i]-promedio.dy)^3
-      sum4<-sum4+(vd[i]-promedio.dy)^4
+      sum3<-sum3+(vd[i]-mean(vd))^3
+      sum4<-sum4+(vd[i]-mean(vd))^4
     }
-    curtosis.dy<-sum4/(n.dy*desvestp.dy^4)-3
-    asimetria.dy<-sum3/(n.dy*desvestp.dy^3)
+    curtosis.dy<-sum4/(n.dy*sd(vd)^4)-3
+    asimetria.dy<-sum3/(n.dy*sd(vd)^3)
     
+    IQR.dy<-quantile(vd,0.75)-quantile(vd,0.25)
     
-    p25.dy<-quantile(vd,0.25)
-    p75.dy<-quantile(vd,0.75)
-    
-    IQR.dy=p75.dy-p25.dy
-    
-    mint.dy <- p25.dy-1.5*IQR.dy
-    maxt.dy <- p75.dy+1.5*IQR.dy
+    mint.dy <- quantile(vd,0.25)-1.5*IQR.dy
+    maxt.dy <- quantile(vd,0.75)+1.5*IQR.dy
     
     
     
@@ -79,20 +55,20 @@ descripYG<- function(dataset, vd, vi)
     names(info.dy)<-c("n","promedio","mediana","desv.estd.m","curtosis","asimetria","min","max","p25","p75","iqr","bmin","bmax")
     
     info.dy[1,]<-c(n.dy, 
-                   format(promedio.dy, digits=2, nsmall=3),
-                   format(mediana.dy, digits = 2, nsmall=3), 
-                   format(desvestm.dy, digits = 2, nsmall=3),
+                   format(mean(vd), digits=2, nsmall=3),
+                   format(median(vd), digits = 2, nsmall=3), 
+                   format(sd(vd), digits = 2, nsmall=3),
                    format(curtosis.dy, digits = 2, nsmall=3), 
                    format(asimetria.dy, digits = 2, nsmall=3),
-                   format(min.dy,digits  = 2, nsmall=3), 
-                   format(max.dy,digits  = 2, nsmall=3),
-                   format(p25.dy,digits  = 2, nsmall=3), 
-                   format(p75.dy,digits  = 2, nsmall=3),
+                   format(min(vd),digits  = 2, nsmall=3), 
+                   format(max(vd),digits  = 2, nsmall=3),
+                   format(quantile(vd,0.25),digits  = 2, nsmall=3), 
+                   format(quantile(vd,0.75),digits  = 2, nsmall=3),
                    format(IQR.dy,digits  = 2, nsmall=3), 
                    format(mint.dy,digits = 2, nsmall=3),
                    format(maxt.dy,digits = 2,nsmall=3))
     
-    barras=trunc(3.322*log10(n.dy)+1)
+    barras<-trunc(3.322*log10(n.dy)+1)
     
     
     g1<-ggplot(data = dataset, aes(x = vd)) +
@@ -115,6 +91,7 @@ descripYG<- function(dataset, vd, vi)
     
       }else {
     
+    ### Calculo por grupo definido por la VI
         
     options(warn = -1)
     ni.e <- tapply(vd, vi, length)
@@ -131,10 +108,10 @@ descripYG<- function(dataset, vd, vi)
     
     
     for (i in 1:ng.e){
-      sum3.e[i]=0
-      sum4.e[i]=0
-      aux01=aux01+ni.e[i]
-      trat.e[i]=vi[aux01]
+      sum3.e[i]<-0
+      sum4.e[i]<-0
+      aux01<-aux01+ni.e[i]
+      trat.e[i]<-vi[aux01]
       nbarr.e[i]
     }
     
@@ -144,24 +121,24 @@ descripYG<- function(dataset, vd, vi)
     curt.e<- 1:ng.e
     asim.e<- 1:ng.e
     
-    prom.e = tapply(vd, vi, mean)
-    mediana.e = tapply(vd, vi, median)
+    prom.e <- tapply(vd, vi, mean)
+    mediana.e <- tapply(vd, vi, median)
     
-    var.e  = tapply(vd, vi, var)
-    ds.e   = tapply(vd, vi, sd)
+    var.e  <- tapply(vd, vi, var)
+    ds.e   <- tapply(vd, vi, sd)
 
-    curt.e =tapply(vd,vi, kurtosis)
-    asim.e =tapply(vd,vi, skew)
+    curt.e <-tapply(vd,vi, kurtosis)
+    asim.e <-tapply(vd,vi, skew)
     
-    min.e = tapply(vd, vi, min)
-    max.e = tapply(vd, vi, max)
+    min.e <- tapply(vd, vi, min)
+    max.e <- tapply(vd, vi, max)
     
     
     perct.e <- tapply(vd, vi, quantile)
     for (i in 1:ng.e) {
-      p25.e[i] = perct.e[[i]][[2]]
-      p75.e[i] = perct.e[[i]][[4]]
-      iqr.e[i] = p75.e[i] - p25.e[i]
+      p25.e[i] <- perct.e[[i]][[2]]
+      p75.e[i] <- perct.e[[i]][[4]]
+      iqr.e[i] <- p75.e[i] - p25.e[i]
     }
     
     
