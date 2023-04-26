@@ -17,11 +17,26 @@
 #'
 #' @export
 #' 
+#' Instrucciones 
+#' si solo hace anaálisis de una variable dependiente (VD)
+#' puede escribirlo 
 #' 
-require(tidyverse)
-require(ggridges)
-require(PerformanceAnalytics)
-require(psych)
+#' 1- descripYG(dataset, vd=dataset$vd,vi=NULL)
+#' 2- descripYG(dataset, dataset$vd,NULL)
+#' 
+#' 
+#' si hara un analisis de la VD, de acuerdo a una independiente (VI)
+#' 
+#' 1- descripYG(dataset, vd=dataset$vd,vi=dataset$vi)
+#' 2- descripYG(dataset, dataset$vd,dataset$vi)
+#'
+#'#' 
+#' 
+#' 
+library(tidyverse)
+library(ggridges)
+library(PerformanceAnalytics)
+library(psych)
 
 
 descripYG<- function(dataset, vd, vi)
