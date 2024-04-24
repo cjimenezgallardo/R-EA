@@ -231,6 +231,5 @@ descripYG<- function(dataset, vd, vi)
 }
 
 
-descripYG(datos,datos$y,datos$g)
 
-descripYG(datos1,datos1$variable_x,datos1$condicion)
+
