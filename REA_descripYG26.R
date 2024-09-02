@@ -37,7 +37,7 @@ library(tidyverse)
 library(ggridges)
 library(PerformanceAnalytics)
 library(psych)
-library(patchwork)
+library(patchwork) 
 
 
 descripYG<- function(dataset, vd, vi)
