@@ -191,7 +191,6 @@ descripYG<- function(dataset, vd, vi)
     }
     
     
-    
     bd1 <- ggplot(data=dataset,aes(x= vd,y=as.factor(vi),fill=as.factor(vi)))+
       geom_density_ridges2()
     print (bd1)    
